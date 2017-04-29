@@ -1,0 +1,103 @@
+<launch>
+
+    <!-- global arguments are only defined here -->
+    <arg name="vehicle1_id" value="1" />
+    <arg name="vehicle2_id" value="2" />
+    <arg name="vehicle3_id" value="3" />
+
+    <arg name="objects_ground_truth_topic_with_ns" value="/sim/objects_ground_truth" />
+    <arg name="desired_motion_topic_with_ns" value="/sim/desired_motion" />
+    <arg name="object_initialization_topic_with_ns" value="/sim/object_initialization" />
+    <arg name="global_communication_ns" value="/sim/comm" />
+
+    <arg name="perc_pred_obj_topic" value="percepted_objects" />
+    <arg name="perc_egomotion_topic" value="ego_motion_state" />
+    <arg name="pred_plan_obj_topic" value="predicted_objects" />
+    <arg name="internal_communication_subns" value="comm" />
+
+    <arg name="BSM_topic" default="BSM"/>
+
+    <arg name="lanelet_map_filename" value="$(find simulation_initialization_ros_tool)/res/lanelet_figure8.osm" />
+    <arg name="fixed_frame" default="map"/>
+    <arg name="map_center_lat" value="49.0229515" />
+    <arg name="map_center_lon" value="8.4318737" />
+
+    <!-- implicit definitions "$(arg )" -->
+    <arg name="vehicle1_ns" value="v$(arg vehicle1_id)" />
+    <arg name="vehicle2_ns" value="v$(arg vehicle2_id)" />
+    <arg name="vehicle3_ns" value="v$(arg vehicle3_id)" />
+
+    <!-- rosparameter definitions -->
+    <param name="/use_sim_time" value="true" />
+    <param name="/time_mgmt/acc_factor" value="1" />
+    <param name="/time_mgmt/time_resolution" value="1000" />
+    <param name="/localization_mgmt/loc_mgmt_freq" value="100"/>
+
+    <!-- set logger level -->
+    <env name="ROSCONSOLE_CONFIG_FILE"
+         value="$(find simulation_initialization_ros_tool)/launch/custom_rosconsole.conf"/>
+
+    <!-- launch simulation management -->
+    <include file="$(find simulation_management_ros_tool)/launch/simulation_management.launch">
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+        <arg name="fixed_frame" value="$(arg fixed_frame)" />
+    </include>
+
+    <!-- launch vehicles -->
+    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle1_ns)" >
+        <arg name="vehicle_id" value="$(arg vehicle1_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle1_ns)" />
+
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
+        <arg name="global_communication_ns" value="$(arg global_communication_ns)" />
+        <arg name="perc_pred_obj_topic" value="$(arg perc_pred_obj_topic)" />
+        <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
+        <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
+        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
+        <arg name="BSM_topic" value="$(arg BSM_topic)" />
+        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
+
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+        <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
+        <arg name="initial_v" value="5.0" />
+        <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+    </include>
+
+    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle2_ns)" >
+        <arg name="vehicle_id" value="$(arg vehicle2_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle2_ns)" />
+
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
+        <arg name="global_communication_ns" value="$(arg global_communication_ns)" />
+        <arg name="perc_pred_obj_topic" value="$(arg perc_pred_obj_topic)" />
+        <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
+        <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
+        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
+        <arg name="BSM_topic" value="$(arg BSM_topic)" />
+        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
+
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+        <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj2.osm" />
+        <arg name="initial_v" value="5.0" />
+        <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+    </include>
+
+    <!-- start rviz -->
+    <node pkg="rviz" type="rviz" name="my_rviz" args="-d $(find simulation_initialization_ros_tool)/launch/simulation_framework.rviz" output="screen"/>
+
+    <!-- lanelet map visualization -->
+    <node pkg="sim_lanelet_visualization_ros_tool" type="lanelet_as_markers_publisher" name="lanelet_as_markers_publisher" output="screen">
+        <param name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
+        <param name="lanelet_map_center_lat" value="$(arg map_center_lat)" />
+        <param name="lanelet_map_center_lon" value="$(arg map_center_lon)" />
+    </node>
+
+    <!-- start rqt reconfigure -->
+    <node pkg="rqt_reconfigure" name="rqt_reconfigure" type="rqt_reconfigure" >
+    </node>
+
+</launch>

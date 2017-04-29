@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>simulation_initialization_ros_tool</name>
+  <version>0.5.0</version>
+  <description>Launchfiles for the simulation framework.</description>
+
+  <license>BSD</license>
+  <maintainer email="maximilian.naumann@kit.edu">Maximilian Naumann</maintainer>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>mrt_cmake_modules</build_depend>
+  <build_depend>rosparam_handler</build_depend>
+  <build_depend>message_generation</build_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <test_depend>gtest</test_depend>
+  <test_depend>rostest</test_depend>
+  <build_depend>roscpp</build_depend>
+  <depend>roslib</depend>
+  <depend>rviz_satellite</depend>
+
+  <!-- Parts of Simulation Framework -->
+  <depend>simulation_management_ros_tool</depend>
+
+  <depend>sim_sample_perception_ros_tool</depend>
+  <depend>sim_sample_prediction_ros_tool</depend>
+  <depend>sim_sample_planning_ros_tool</depend>
+  <depend>sim_sample_communication_ros_tool</depend>
+
+  <depend>object_state_array_rviz_plugin_ros</depend>
+  <depend>sim_lanelet_visualization_ros_tool</depend>
+
+</package>
