@@ -20,6 +20,7 @@
     <arg name="initial_v" />
     <arg name="s_start" />
     <arg name="hull_file" />
+    <arg name="object_type" />
     <arg name="frame_id_initial_position" />
     <arg name="frame_id_loc_mgmt" />
 
@@ -28,16 +29,18 @@
     <arg name="const_offset" value="2.0" />
 
     <!-- launch initialization -->
-    <node pkg="simulation_management_ros_tool" type="object_initialization.py" name="object_initialization" output="screen" ns="init">
-        <param name="object_id" value="$(arg vehicle_id)" />
-        <param name="trajectory_file" value="$(arg trajectory_file)" />
-        <param name="initial_v" value="$(arg initial_v)" />
-        <param name="s_start" value="$(arg s_start)" />
-        <param name="hull_file" value="$(arg hull_file)" />
-        <param name="frame_id_initial_position" value="$(arg frame_id_initial_position)" />
-        <param name="frame_id_loc_mgmt" value="$(arg frame_id_loc_mgmt)" />
-        <param name="object_initialization_topic" value="$(arg object_initialization_topic_with_ns)" />
-    </node>
+    <include file="$(find simulation_management_ros_tool)/launch/object_initialization.launch" ns="init">
+        <arg name="object_id" value="$(arg vehicle_id)" />
+        <arg name="trajectory_file" value="$(arg trajectory_file)" />
+        <arg name="initial_v" value="$(arg initial_v)" />
+        <arg name="s_start" value="$(arg s_start)" />
+        <arg name="hull_file" value="$(arg hull_file)" />
+        <arg name="object_type" value="$(arg object_type)" />
+        <arg name="frame_id_initial_position" value="$(arg frame_id_initial_position)" />
+        <arg name="frame_id_loc_mgmt" value="$(arg frame_id_loc_mgmt)" />
+
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+    </include>
 
     <!-- launch perception -->
     <include file="$(find sim_sample_perception_ros_tool)/launch/sample_perception.launch" ns="perception" >

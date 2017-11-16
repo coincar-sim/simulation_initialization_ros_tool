@@ -76,6 +76,7 @@
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
         <arg name="initial_v" value="5.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+        <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
         <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
@@ -99,6 +100,7 @@
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj2.osm" />
         <arg name="initial_v" value="5.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+        <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
         <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
