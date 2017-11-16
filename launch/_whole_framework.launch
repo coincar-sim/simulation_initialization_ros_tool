@@ -19,6 +19,7 @@
 
     <arg name="lanelet_map_filename" value="$(find simulation_initialization_ros_tool)/res/lanelet_figure8.osm" />
     <arg name="utm_base_frame" default="map"/>
+    <arg name="loc_mgmt_frame" default="$(arg utm_base_frame)"/>
     <arg name="map_center_lat" value="49.0229515" />
     <arg name="map_center_lon" value="8.4318737" />
     <arg name="map_center_frame" value="lanelet_map_center" />
@@ -53,7 +54,7 @@
         <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
         <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
-        <arg name="fixed_frame" value="$(arg utm_base_frame)" />
+        <arg name="fixed_frame" value="$(arg loc_mgmt_frame)" />
     </include>
 
     <!-- launch vehicles -->
@@ -75,6 +76,9 @@
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
         <arg name="initial_v" value="5.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+        <arg name="s_start" value="0.0" />
+        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
+        <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
     </include>
 
     <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle2_ns)" >
@@ -95,6 +99,9 @@
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj2.osm" />
         <arg name="initial_v" value="5.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
+        <arg name="s_start" value="0.0" />
+        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
+        <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
     </include>
 
 
