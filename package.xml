@@ -28,6 +28,8 @@
 
   <depend>simulation_utils_ros_tool</depend>
   <depend>object_state_array_rviz_plugin_ros</depend>
+  <depend>motion_state_rviz_plugin_ros</depend>
+  <depend>desired_motion_rviz_plugin_ros</depend>
   <depend>lanelet_rviz_plugin_ros</depend>
 
 </package>

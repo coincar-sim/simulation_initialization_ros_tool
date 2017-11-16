@@ -10,7 +10,7 @@
     <arg name="object_initialization_topic_with_ns" value="/sim/object_initialization" />
     <arg name="global_communication_ns" value="/sim/comm" />
 
-    <arg name="perc_pred_obj_topic" value="percepted_objects" />
+    <arg name="perc_pred_obj_topic" value="perceived_objects" />
     <arg name="perc_egomotion_topic" value="ego_motion_state" />
     <arg name="pred_plan_obj_topic" value="predicted_objects" />
     <arg name="internal_communication_subns" value="comm" />
