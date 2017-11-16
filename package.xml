@@ -26,7 +26,8 @@
   <depend>sim_sample_planning_ros_tool</depend>
   <depend>sim_sample_communication_ros_tool</depend>
 
+  <depend>simulation_utils_ros_tool</depend>
   <depend>object_state_array_rviz_plugin_ros</depend>
-  <depend>sim_lanelet_visualization_ros_tool</depend>
+  <depend>lanelet_rviz_plugin_ros</depend>
 
 </package>
