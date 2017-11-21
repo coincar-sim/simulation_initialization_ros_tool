@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>simulation_initialization_ros_tool</name>
-  <version>0.5.0</version>
-  <description>Launchfiles for the simulation framework.</description>
+  <version>1.0.0</version>
+  <description>Meta package, settings and launchfiles for the simulation framework.</description>
 
   <license>BSD</license>
   <maintainer email="maximilian.naumann@kit.edu">Maximilian Naumann</maintainer>
@@ -16,20 +16,28 @@
   <test_depend>rostest</test_depend>
   <build_depend>roscpp</build_depend>
   <depend>roslib</depend>
+  <depend>automated_driving_msgs</depend>
   <depend>rviz_satellite</depend>
 
   <!-- Parts of Simulation Framework -->
+  <!-- core/general -->
   <depend>simulation_management_ros_tool</depend>
+  <depend>simulation_only_msgs</depend>
+  <depend>simulation_utils</depend>
+  <depend>simulation_utils_ros_tool</depend>
+  <depend>sim_lanelet</depend>
 
+  <!-- sample vehicle -->
   <depend>sim_sample_perception_ros_tool</depend>
   <depend>sim_sample_prediction_ros_tool</depend>
   <depend>sim_sample_planning_ros_tool</depend>
+  <depend>sim_sample_actuator_ros_tool</depend>
   <depend>sim_sample_communication_ros_tool</depend>
 
-  <depend>simulation_utils_ros_tool</depend>
-  <depend>object_state_array_rviz_plugin_ros</depend>
-  <depend>motion_state_rviz_plugin_ros</depend>
+  <!-- visualization -->
   <depend>desired_motion_rviz_plugin_ros</depend>
   <depend>lanelet_rviz_plugin_ros</depend>
+  <depend>motion_state_rviz_plugin_ros</depend>
+  <depend>object_state_array_rviz_plugin_ros</depend>
 
 </package>
