@@ -1,0 +1,37 @@
+<launch>
+
+    <!-- arguments that are passed from the top launchfile -->
+    <arg name="vehicle_id" />
+    <arg name="vehicle_ns" />
+
+    <!-- vehicle initialization arguments -->
+    <arg name="object_initialization_topic_with_ns" />
+    <arg name="trajectory_file" />
+    <arg name="initial_v" />
+    <arg name="s_start" />
+    <arg name="spawn_time" default="0.0" />
+    <arg name="hull_file" />
+    <arg name="object_type" />
+    <arg name="frame_id_initial_position" />
+    <arg name="frame_id_loc_mgmt" />
+    <arg name="navsatfix_topic" />
+
+
+    <!-- launch initialization -->
+    <include file="$(find simulation_management_ros_tool)/launch/object_initialization.launch" ns="init">
+        <arg name="object_id" value="$(arg vehicle_id)" />
+        <arg name="trajectory_file" value="$(arg trajectory_file)" />
+        <arg name="initial_v" value="$(arg initial_v)" />
+        <arg name="s_start" value="$(arg s_start)" />
+        <arg name="hull_file" value="$(arg hull_file)" />
+        <arg name="object_type" value="$(arg object_type)" />
+        <arg name="object_role" value="OBSTACLE_DYNAMIC" />
+        <arg name="spawn_time" value="$(arg spawn_time)" />
+        <arg name="frame_id_initial_position" value="$(arg frame_id_initial_position)" />
+        <arg name="frame_id_loc_mgmt" value="$(arg frame_id_loc_mgmt)" />
+        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
+
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+    </include>
+
+</launch>

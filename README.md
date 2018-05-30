@@ -1,90 +1,55 @@
-# ROS Simulation Framework
-
-This is the main readme of the ROS Simulation Framework, developed jointly within the [Priority Program 1835 "Cooperatively Interacting Automobiles"](http://www.coincar.de/) of the German Science Foundation (DFG) and within the [TechCenter A-Drive](http://tcadrive.de/) funded by the state of Baden-Württemberg.
-
-The readme of this meta package, containing settings for a working example of the framework, can be found in the [README_initialization.md](README_initialization.md).
-
-![Visualization of the framework (rviz)](doc/framework-rviz.png)
+# simulation_initialization_ros_tool
+Initialization of all parts of the simulation framework. **Launchfiles only!**
 
 ## Installation
-Installation requires Linux as operating system. The framework is developed and tested under [Ubuntu 16.04](http://releases.ubuntu.com/16.04/).
-
-#### Prerequisites
-In order to use the framework, you need to install the following packages (installable via `apt install`)
-* ROS (see http://wiki.ros.org/ROS/Installation)
-  * `ros-kinetic-desktop-full`
-  * `ros-kinetic-geodesy`
-  * `ros-kinetic-tf2-geometry-msgs`
-* Catkin Tools (see http://catkin-tools.readthedocs.io/en/latest/index.html)
-  * `python-catkin-tools`
-* System Libraries
-  * `libpugixml-dev`
-  * boost and eigen are installed with ROS
-
-#### Required repositories
-
-External Dependencies
-* [automated_driving_msgs](https://github.com/fzi-forschungszentrum-informatik/automated_driving_msgs): messages used by the framework
-* [mrt_cmake_modules](https://github.com/KIT-MRT/mrt_cmake_modules): cmake helper
-* [rosparam_handler](https://github.com/cbandera/rosparam_handler): handling ROS parameters
-* [rviz_satellite](https://github.com/gareth-cross/rviz_satellite): plugin for visualization of satellite images
-
-Parts of this Framework
-
-* general functionality:
-  * simulation_initialization_ros_tool (this): settings and launchfiles
-  * simulation_management_ros_tool: core functionality (localization, time and initialization management)
-  * simulation_only_msgs: additional messages
-  * simulation_utils: all utility libraries
-  * simulation_utils_ros_tool: small utility nodes
-  * sim_lanelet: lanelet map library
-
-
-* sample vehicle:
-  * sim_sample_perception_ros_tool
-  * sim_sample_prediction_ros_tool
-  * sim_sample_planning_ros_tool
-  * sim_sample_actuator_ros_tool
-  * sim_sample_communication_ros_tool
-
-
-* visualization:
-  * desired_motion_rviz_plugin_ros
-  * lanelet_rviz_plugin_ros
-  * motion_state_rviz_plugin_ros
-  * object_state_array_rviz_plugin_ros
-
-* see the readme of the respective package for details
-
+* this package is part of the simulation framework
+* see [coincarsim_getting_started](https://github.com/coincar-sim/coincarsim_getting_started) for installation and more details
 
 ## Usage
-#### 1a) Set up and build the workspace yourself
-* set up a catkin workspace
-  * ` $ mkdir catkin_ws && cd catkin_ws`
-  * `catkin_ws$ wstool init`
-  * `catkin_ws$ mkdir src && cd src`
-* clone all repositories into the `src` folder of this workspace
-  * `catkin_ws/src$ git clone <adress of repository>`
-* build the workspace
-  * `catkin_ws/src$ cd ..`
-  * `catkin_ws$ catkin build`
-* source the build-files
-  * `catkin_ws$ source devel/setup.bash`
+* launch the file `launch/_whole_framework.launch`
 
-or
-#### 1b) Use the script
-* do the above steps by starting
-  * ` $ ./setup_workspace.sh`
+#### Launchfile Overview
 
-and then
-#### 2) Launch the framework
-* start the simulation framework by launching the main launchfile:
-  * `catkin_ws$ roslaunch simulation_initialization_ros_tool _whole_framework.launch`
-  * see [README_initialization.md](README_initialization.md) for details about how the parts of the framework are launched
+```
+simulation_initialization_ros_tool
+    │
+    ├── simulation_management_ros_tool *
+    │   │
+    │   ├── time_mgmt
+    │   ├── localization_mgmt
+    │   └── object_initialization
+    │
+    └── objects
+        │
+        ├── vehicle1
+        │   ├── perception *
+        │   ├── prediction *
+        │   ├── planning *
+        │   └── communication *
+        │
+        └── vehicle2
+            ├── perception *
+            ├── prediction *
+            ├── planning *
+            └── communication *
+            
+* = repositories (so they must include a launchfile which has to be called)
+all other launchfiles inside here
+```
+* initialization launches the simulation management, the objects, dynamic reconfigure and rviz
+* simulation management launches the single management nodes
+* the objects launch their 4 modules and their initialization
+* each of the modules launch their nodes
 
-#### 3) Contribute
-* fork this meta package and modify the launchfiles/settings to simulate (parts of) your vehicle
-* fork other components or create new ones to modify and/or extend the functionality
+#### Settings Overview
+* the rviz settings are saved in the file `launch/simulation_framework.rviz` and passed through to rviz from the launchfile
+* other settings (e.g. for the localization management) are done entirely within the launchfiles
+  * see the readme files of the respective package
+  * ideally all parameters are defined in the top launchfile `launch/_whole_framework.launch` and passed through from there
+
+#### ROS Graph
+![Rosgraph of the framework (rviz)](doc/framework-rosgraph.png)
+* for an interactive version of the graph create it yourself executing `$ rqt_graph` while the simulation is running
 
 ## License
-Contact the maintainer of the respective package for license issues.
+This package is distributed under the 3-Clause BSD License, see [LICENSE](LICENSE).

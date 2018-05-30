@@ -94,7 +94,7 @@ Visualization Manager:
       Name: ObjectStateArray
       Text:
         Debug info: false
-        Size: 0.400000006
+        Size: 3
         Value: true
       Topic: /sim/objects_ground_truth
       Unreliable: false
@@ -106,18 +106,18 @@ Visualization Manager:
       Display All Objects:
         Value: true
       Enabled: true
+      Maximum Frequency: 10
       Maximum Planning Horizon: 10
       Name: DesiredMotion
       ObjectStateArray (OSA) - Topic: /sim/objects_ground_truth
+      PlannerDebugMode(!): false
       Radii of Circles: ~
       Value: true
     - Class: lanelet_rviz_plugin_ros::LaneletMapPlugin
       Enabled: true
       Map-File: ${/ll_rviz/lanelet_map_filename}
       Name: LaneletMapPlugin
-      Reference Frame: ${/ll_rviz/map_center_frame}
-      Reference Frame Latitude: ${/ll_rviz/map_center_lat}
-      Reference Frame Longitude: ${/ll_rviz/map_center_lon}
+      NavSatFix Topic: /nav_sat_fix_map_center
       Value: true
       Visibility of Map:
         Linewidth: 0.300000012
