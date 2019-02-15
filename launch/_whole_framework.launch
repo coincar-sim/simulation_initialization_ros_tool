@@ -8,6 +8,7 @@
 
     <arg name="objects_ground_truth_topic_with_ns" value="/sim/objects_ground_truth" />
     <arg name="desired_motion_topic_with_ns" value="/sim/desired_motion" />
+    <arg name="desired_motion_absolute_topic_with_ns" value="/sim/desired_motion_absolute" />
     <arg name="object_initialization_topic_with_ns" value="/sim/object_initialization" />
     <arg name="object_removal_topic_with_ns" value="/sim/object_removal" />
     <arg name="global_communication_ns" value="/sim/comm" />
@@ -60,6 +61,7 @@
     <include file="$(find simulation_management_ros_tool)/launch/simulation_management.launch">
         <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
         <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
+        <arg name="desired_motion_absolute_topic_with_ns" value="$(arg desired_motion_absolute_topic_with_ns)" />
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
         <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
         <arg name="fixed_frame" value="$(arg loc_mgmt_frame)" />
