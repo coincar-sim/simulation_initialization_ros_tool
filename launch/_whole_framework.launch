@@ -20,12 +20,10 @@
     <arg name="BSM_topic" default="BSM"/>
 
     <arg name="lanelet_map_filename" value="$(find simulation_initialization_ros_tool)/res/lanelet_figure8.osm" />
-    <arg name="utm_base_frame" default="map"/>
-    <arg name="loc_mgmt_frame" default="$(arg utm_base_frame)"/>
+    <arg name="map_frame" default="map"/>
     <arg name="map_center_lat" value="49.0229515" />
     <arg name="map_center_lon" value="8.4318737" />
-    <arg name="map_center_frame" value="lanelet_map_center" />
-    <arg name="navsatfix_topic" value="/nav_sat_fix_map_center" />
+    <arg name="loc_mgmt_frame" default="$(arg map_frame)"/>
 
     <!-- implicit definitions "$(arg )" -->
     <arg name="vehicle1_ns" value="v$(arg vehicle1_id)" />
@@ -41,6 +39,12 @@
 
     <!-- set true for a synchronized start (you start the time by unclicking "pause_time" in the dynamic reconfigure window) -->
     <param name="/time_mgmt/pause_time" value="false" />
+
+    <include file="$(find lanelet2_interface_ros)/launch/set_lanelet_map.launch">
+        <arg name="map_file_name" value="$(arg lanelet_map_filename)" />
+        <arg name="lat_origin" value="$(arg map_center_lat)" />
+        <arg name="lon_origin" value="$(arg map_center_lon)" />
+    </include>
 
     <param name="/ll_rviz/lanelet_map_filename" value="$(arg lanelet_map_filename)"/>
 
@@ -74,8 +78,6 @@
         <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
         <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
         <arg name="BSM_topic" value="$(arg BSM_topic)" />
-        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
@@ -83,7 +85,6 @@
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
         <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
-        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
     </include>
 
@@ -99,8 +100,6 @@
         <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
         <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
         <arg name="BSM_topic" value="$(arg BSM_topic)" />
-        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
         <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj2.osm" />
@@ -108,7 +107,6 @@
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
         <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
-        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
     </include>
 
@@ -121,9 +119,7 @@
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull_pedestrian.xml" />
         <arg name="object_type" value="pedestrian" />
         <arg name="s_start" value="0.0" />
-        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
     </include>
 
     <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_dynamic_obstacle.launch" ns="$(arg pedestrian2_ns)" >
@@ -136,9 +132,7 @@
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull_pedestrian.xml" />
         <arg name="object_type" value="pedestrian" />
         <arg name="s_start" value="5.0" />
-        <arg name="frame_id_initial_position" value="$(arg utm_base_frame)" />
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
     </include>
 
     <include file="$(find simulation_management_ros_tool)/launch/object_removal.launch" ns="$(arg pedestrian1_ns)" >
@@ -147,28 +141,6 @@
         <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
     </include>
 
-
-
-    <!-- publish the tf from the base frame to the map center (used as fixed frame in rviz) -->
-    <include file="$(find simulation_utils_ros_tool)/launch/static_utm_tf_publisher.launch" >
-        <arg name="tf_publisher_name" value="transform_utm_base_to_map_center_publisher" />
-        <arg name="child_lat" value="$(arg map_center_lat)" />
-        <arg name="child_lon" value="$(arg map_center_lon)" />
-        <arg name="tf_frame_id_utm_base" value="$(arg utm_base_frame)" />
-        <arg name="tf_frame_id_child" value="$(arg map_center_frame)" />
-        <arg name="publishing_frequency" value="100.0" />
-    </include>
-
-    <!-- publish nav-sat-fix for satellite images and the lanelet map in rviz -->
-    <include file="$(find simulation_utils_ros_tool)/launch/nav_sat_fix_launchfile_publisher.launch" >
-        <arg name="publisher_name" value="nav_sat_fix_map_center_publisher" />
-        <arg name="frame_lat" value="$(arg map_center_lat)" />
-        <arg name="frame_lon" value="$(arg map_center_lon)" />
-        <arg name="frame_alt" value="0.0" />
-        <arg name="tf_frame_id" value="$(arg map_center_frame)" />
-        <arg name="nav_sat_fix_topic" value="$(arg navsatfix_topic)" />
-        <arg name="publishing_frequency" value="1" />
-    </include>
 
     <!-- start rviz -->
     <node pkg="rviz" type="rviz" name="my_rviz" args="-d $(find simulation_initialization_ros_tool)/launch/simulation_framework.rviz" output="screen" />

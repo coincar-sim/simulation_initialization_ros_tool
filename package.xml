@@ -16,7 +16,7 @@
   <depend>simulation_management_ros_tool</depend>
   <depend>simulation_only_msgs</depend>
   <depend>simulation_utils_ros_tool</depend>
-  <depend>sim_lanelet</depend>
+  <depend>lanelet2_interface_ros</depend>
 
   <!-- sample vehicle -->
   <depend>sim_sample_perception_ros_tool</depend>
