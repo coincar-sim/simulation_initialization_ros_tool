@@ -25,7 +25,6 @@
 
     <!-- planning specific arguments -->
     <arg name="v_desired" value="3.0" />
-    <arg name="const_offset" value="2.0" />
 
     <!-- launch initialization -->
     <include file="$(find simulation_management_ros_tool)/launch/object_initialization.launch" ns="init">
@@ -76,7 +75,6 @@
         <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
 
         <arg name="v_desired" value="$(arg v_desired)" />
-        <arg name="const_offset" value="$(arg const_offset)" />
     </include>
 
 
