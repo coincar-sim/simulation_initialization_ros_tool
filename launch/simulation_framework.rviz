@@ -64,19 +64,6 @@ Visualization Manager:
         {}
       Update Interval: 0
       Value: false
-    - Alpha: 0.699999988
-      Blocks: 3
-      Class: rviz_plugins/AerialMapDisplay
-      Draw Behind: false
-      Dynamically reload: true
-      Enabled: true
-      Frame Convention: XYZ -> ENU
-      Name: AerialMapDisplay
-      Object URI: http://a.tiles.mapbox.com/v4/openstreetmap.map-inh7ifmo/{z}/{x}/{y}.jpg?access_token=pk.eyJ1Ijoib3BlbnN0cmVldG1hcCIsImEiOiJncjlmd0t3In0.DmZsIeOW-3x-C5eX-wAqTw
-      Robot frame: lanelet_map_center
-      Topic: /nav_sat_fix_map_center
-      Value: true
-      Zoom: 18
     - Arrows:
         Length: 3
         Maximum velocity: 10
@@ -115,9 +102,7 @@ Visualization Manager:
       Value: true
     - Class: lanelet_rviz_plugin_ros::LaneletMapPlugin
       Enabled: true
-      Map-File: ${/ll_rviz/lanelet_map_filename}
       Name: LaneletMapPlugin
-      NavSatFix Topic: /nav_sat_fix_map_center
       Value: true
       Visibility of Map:
         Linewidth: 0.300000012
@@ -129,8 +114,9 @@ Visualization Manager:
         Visibility of Regulatory Elements (e.g. Stop Lines): true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
-    Fixed Frame: lanelet_map_center
+    Background Color: 127; 127; 127
+    Default Light: true
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
