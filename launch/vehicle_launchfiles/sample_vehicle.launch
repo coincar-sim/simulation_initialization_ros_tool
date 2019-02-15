@@ -12,7 +12,6 @@
     <arg name="pred_plan_obj_topic" />
     <arg name="internal_communication_subns" />
     <arg name="BSM_topic" />
-    <arg name="lanelet_map_filename" />
 
     <!-- vehicle initialization arguments -->
     <arg name="object_initialization_topic_with_ns" />
@@ -22,9 +21,7 @@
     <arg name="spawn_time" default="0.0" />
     <arg name="hull_file" />
     <arg name="object_type" />
-    <arg name="frame_id_initial_position" />
     <arg name="frame_id_loc_mgmt" />
-    <arg name="navsatfix_topic" />
 
     <!-- planning specific arguments -->
     <arg name="v_desired" value="3.0" />
@@ -40,9 +37,7 @@
         <arg name="object_type" value="$(arg object_type)" />
         <arg name="object_role" value="AGENT_OPERATED" />
         <arg name="spawn_time" value="$(arg spawn_time)" />
-        <arg name="frame_id_initial_position" value="$(arg frame_id_initial_position)" />
         <arg name="frame_id_loc_mgmt" value="$(arg frame_id_loc_mgmt)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
     </include>
@@ -60,18 +55,12 @@
     </include>
 
     <!-- launch prediction -->
-    <include file="$(find sim_sample_prediction_ros_tool)/launch/sample_prediction.launch" ns="prediction" >
+    <include file="$(find sim_sample_prediction_ros_tool)/launch/lane_prediction.launch" ns="prediction" >
         <arg name="vehicle_id" value="$(arg vehicle_id)" />
         <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
 
-        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
-        <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
         <arg name="perc_pred_obj_topic" value="$(arg perc_pred_obj_topic)" />
-        <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
         <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
-        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
-
-        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
     </include>
 
 
@@ -85,9 +74,6 @@
         <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
         <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
         <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
-
-        <arg name="lanelet_map_filename" value="$(arg lanelet_map_filename)" />
-        <arg name="navsatfix_topic" value="$(arg navsatfix_topic)" />
 
         <arg name="v_desired" value="$(arg v_desired)" />
         <arg name="const_offset" value="$(arg const_offset)" />
