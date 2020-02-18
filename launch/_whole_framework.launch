@@ -82,8 +82,11 @@
         <arg name="BSM_topic" value="$(arg BSM_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
-        <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
-        <arg name="initial_v" value="5.0" />
+        <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
+        <arg name="lanelet_id_start" value="30002long" /> <!-- see doc/lanelet_id_roslaunch.md -->
+        <arg name="lanelet_id_goal" value="30003long" /> <!-- see doc/lanelet_id_roslaunch.md -->
+        <arg name="drive_random_after_goal_reached" value="True" />
+        <arg name="initial_v" value="3.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
         <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
@@ -104,8 +107,11 @@
         <arg name="BSM_topic" value="$(arg BSM_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
-        <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj2.osm" />
-        <arg name="initial_v" value="5.0" />
+        <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
+        <arg name="lanelet_id_start" value="30006long" /> <!-- see doc/lanelet_id_roslaunch.md -->
+        <arg name="lanelet_id_goal" value="30000long" /> <!-- see doc/lanelet_id_roslaunch.md -->
+        <arg name="drive_random_after_goal_reached" value="True" />
+        <arg name="initial_v" value="3.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
         <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />

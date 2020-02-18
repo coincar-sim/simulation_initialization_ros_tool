@@ -13,23 +13,26 @@
     <arg name="internal_communication_subns" />
     <arg name="BSM_topic" />
 
-    <!-- vehicle initialization arguments -->
+    <!-- vehicle initialization and planning arguments -->
     <arg name="object_initialization_topic_with_ns" />
-    <arg name="trajectory_file" />
+    <arg name="object_removal_topic_with_ns" />
+
+    <arg name="lanelet_id_start" />  <!-- see doc/lanelet_id_roslaunch.md -->
+    <arg name="lanelet_id_goal" />  <!-- see doc/lanelet_id_roslaunch.md -->
     <arg name="initial_v" />
     <arg name="s_start" />
     <arg name="spawn_time" default="0.0" />
     <arg name="hull_file" />
     <arg name="object_type" />
     <arg name="frame_id_loc_mgmt" />
-
-    <!-- planning specific arguments -->
-    <arg name="v_desired" value="3.0" />
+    <arg name="drive_random_after_goal_reached" default="True" />
+    <arg name="v_desired" value="$(arg initial_v)" />
 
     <!-- launch initialization -->
-    <include file="$(find simulation_management_ros_tool)/launch/object_initialization.launch" ns="init">
+    <include file="$(find simulation_management_ros_tool)/launch/object_initialization_lanelets.launch" ns="init">
         <arg name="object_id" value="$(arg vehicle_id)" />
-        <arg name="trajectory_file" value="$(arg trajectory_file)" />
+        <arg name="lanelet_id_start" value="$(arg lanelet_id_start)" />
+        <arg name="lanelet_id_goal" value="$(arg lanelet_id_goal)" />
         <arg name="initial_v" value="$(arg initial_v)" />
         <arg name="s_start" value="$(arg s_start)" />
         <arg name="hull_file" value="$(arg hull_file)" />
@@ -69,12 +72,15 @@
         <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
 
         <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
         <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
         <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
         <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
         <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
 
         <arg name="v_desired" value="$(arg v_desired)" />
+        <arg name="lanelet_id_goal" value="$(arg lanelet_id_goal)" />
+        <arg name="drive_random_after_goal_reached" value="$(arg drive_random_after_goal_reached)" />
     </include>
 
 
