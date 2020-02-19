@@ -1,0 +1,11 @@
+<launch>
+
+    <!-- launch whole framework -->
+    <include file="$(find simulation_initialization_ros_tool)/launch/_whole_framework.launch" />
+
+    <!-- test if a desired motion is published -->
+    <test test-name="whole_framework_test" pkg="simulation_initialization_ros_tool" type="test_whole_framework.py" time-limit="60.0">
+        <param name="desired_motion_topic" value="/sim/desired_motion" />
+    </test>
+
+</launch>
