@@ -1,3 +1,5 @@
+[![Build Status](https://api.travis-ci.org/coincar-sim/simulation_initialization_ros_tool.svg)](https://travis-ci.org/coincar-sim/simulation_initialization_ros_tool)
+
 # simulation_initialization_ros_tool
 Initialization of all parts of the simulation framework. **Launchfiles only!**
 
