@@ -30,4 +30,6 @@
   <depend>motion_state_rviz_plugin_ros</depend>
   <depend>object_state_array_rviz_plugin_ros</depend>
 
+  <depend>rqt_reconfigure</depend>
+
 </package>
