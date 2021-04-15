@@ -68,7 +68,7 @@
     </include>
 
     <!-- launch objects -->
-    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle1_ns)" >
+    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle_lanelet_init.launch" ns="$(arg vehicle1_ns)" >
         <arg name="vehicle_id" value="$(arg vehicle1_id)" />
         <arg name="vehicle_ns" value="$(arg vehicle1_ns)" />
 
@@ -93,7 +93,7 @@
         <arg name="frame_id_loc_mgmt" value="$(arg loc_mgmt_frame)" />
     </include>
 
-    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle2_ns)" >
+    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle_lanelet_init.launch" ns="$(arg vehicle2_ns)" >
         <arg name="vehicle_id" value="$(arg vehicle2_id)" />
         <arg name="vehicle_ns" value="$(arg vehicle2_ns)" />
 
