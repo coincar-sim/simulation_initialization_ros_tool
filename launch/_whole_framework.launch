@@ -83,8 +83,8 @@
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
         <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
-        <arg name="lanelet_id_start" value="30002long" /> <!-- see doc/lanelet_id_roslaunch.md -->
-        <arg name="lanelet_id_goal" value="30003long" /> <!-- see doc/lanelet_id_roslaunch.md -->
+        <arg name="lanelet_id_start" value="30002L" /> <!-- see rosinterface_handler/doc/HowToUseLongParameters.md -->
+        <arg name="lanelet_id_goal" value="30003L" /> <!-- see rosinterface_handler/doc/HowToUseLongParameters.md -->
         <arg name="drive_random_after_goal_reached" value="True" />
         <arg name="initial_v" value="3.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
