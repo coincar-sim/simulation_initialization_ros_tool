@@ -1,0 +1,99 @@
+<launch>
+
+    <!-- arguments that are passed from the top launchfile -->
+    <arg name="vehicle_id" />
+    <arg name="vehicle_ns" />
+
+    <arg name="objects_ground_truth_topic_with_ns" />
+    <arg name="desired_motion_topic_with_ns" />
+    <arg name="global_communication_ns" />
+    <arg name="perc_pred_obj_topic" />
+    <arg name="perc_egomotion_topic" />
+    <arg name="pred_plan_obj_topic" />
+    <arg name="internal_communication_subns" />
+    <arg name="BSM_topic" />
+
+    <!-- vehicle initialization and planning arguments -->
+    <arg name="object_initialization_topic_with_ns" />
+    <arg name="object_removal_topic_with_ns" />
+
+    <arg name="lanelet_id_start" />  <!-- see rosinterface_handler for int64 support -->
+    <arg name="lanelet_id_goal" />  <!-- see rosinterface_handler for int64 support -->
+    <arg name="initial_v" />
+    <arg name="s_start" />
+    <arg name="spawn_time" default="0.0" />
+    <arg name="hull_file" />
+    <arg name="object_type" />
+    <arg name="frame_id_loc_mgmt" />
+    <arg name="drive_random_after_goal_reached" default="True" />
+    <arg name="v_desired" value="$(arg initial_v)" />
+
+    <!-- launch initialization -->
+    <include file="$(find simulation_management_ros_tool)/launch/object_initialization_lanelets.launch" ns="init">
+        <arg name="object_id" value="$(arg vehicle_id)" />
+        <arg name="lanelet_id_start" value="$(arg lanelet_id_start)" />
+        <arg name="lanelet_id_goal" value="$(arg lanelet_id_goal)" />
+        <arg name="initial_v" value="$(arg initial_v)" />
+        <arg name="s_start" value="$(arg s_start)" />
+        <arg name="hull_file" value="$(arg hull_file)" />
+        <arg name="object_type" value="$(arg object_type)" />
+        <arg name="object_role" value="AGENT_OPERATED" />
+        <arg name="spawn_time" value="$(arg spawn_time)" />
+        <arg name="frame_id_loc_mgmt" value="$(arg frame_id_loc_mgmt)" />
+
+        <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
+    </include>
+
+    <!-- launch perception -->
+    <include file="$(find sim_sample_perception_ros_tool)/launch/sample_perception.launch" ns="perception" >
+        <arg name="vehicle_id" value="$(arg vehicle_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
+
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="perc_pred_obj_topic" value="$(arg perc_pred_obj_topic)" />
+        <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
+        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
+        <arg name="BSM_topic" value="$(arg BSM_topic)" />
+    </include>
+
+    <!-- launch prediction -->
+    <include file="$(find sim_sample_prediction_ros_tool)/launch/lane_prediction.launch" ns="prediction" >
+        <arg name="vehicle_id" value="$(arg vehicle_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
+
+        <arg name="perc_pred_obj_topic" value="$(arg perc_pred_obj_topic)" />
+        <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
+    </include>
+
+
+    <!-- launch planning -->
+    <include file="$(find sim_sample_planning_ros_tool)/launch/sample_planning.launch" ns="planning" >
+        <arg name="vehicle_id" value="$(arg vehicle_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
+
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
+        <arg name="desired_motion_topic_with_ns" value="$(arg desired_motion_topic_with_ns)" />
+        <arg name="perc_egomotion_topic" value="$(arg perc_egomotion_topic)" />
+        <arg name="pred_plan_obj_topic" value="$(arg pred_plan_obj_topic)" />
+        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
+
+        <arg name="v_desired" value="$(arg v_desired)" />
+        <arg name="lanelet_id_goal" value="$(arg lanelet_id_goal)" />
+        <arg name="drive_random_after_goal_reached" value="$(arg drive_random_after_goal_reached)" />
+    </include>
+
+
+    <!-- launch communication -->
+    <include file="$(find sim_sample_communication_ros_tool)/launch/sample_communication.launch" ns="$(arg internal_communication_subns)" >
+        <arg name="vehicle_id" value="$(arg vehicle_id)" />
+        <arg name="vehicle_ns" value="$(arg vehicle_ns)" />
+
+        <arg name="objects_ground_truth_topic_with_ns" value="$(arg objects_ground_truth_topic_with_ns)" />
+        <arg name="global_communication_ns" value="$(arg global_communication_ns)" />
+        <arg name="internal_communication_subns" value="$(arg internal_communication_subns)" />
+
+        <arg name="car2x_topic1" value="$(arg BSM_topic)" />
+    </include>
+
+</launch>

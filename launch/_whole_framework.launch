@@ -68,7 +68,7 @@
     </include>
 
     <!-- launch objects -->
-    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle.launch" ns="$(arg vehicle1_ns)" >
+    <include file="$(find simulation_initialization_ros_tool)/launch/vehicle_launchfiles/sample_vehicle_lanelet_init.launch" ns="$(arg vehicle1_ns)" >
         <arg name="vehicle_id" value="$(arg vehicle1_id)" />
         <arg name="vehicle_ns" value="$(arg vehicle1_ns)" />
 
@@ -82,8 +82,11 @@
         <arg name="BSM_topic" value="$(arg BSM_topic)" />
 
         <arg name="object_initialization_topic_with_ns" value="$(arg object_initialization_topic_with_ns)" />
-        <arg name="trajectory_file" value="$(find simulation_initialization_ros_tool)/res/traj1.osm" />
-        <arg name="initial_v" value="5.0" />
+        <arg name="object_removal_topic_with_ns" value="$(arg object_removal_topic_with_ns)" />
+        <arg name="lanelet_id_start" value="30002L" /> <!-- see rosinterface_handler/doc/HowToUseLongParameters.md -->
+        <arg name="lanelet_id_goal" value="30003L" /> <!-- see rosinterface_handler/doc/HowToUseLongParameters.md -->
+        <arg name="drive_random_after_goal_reached" value="True" />
+        <arg name="initial_v" value="3.0" />
         <arg name="hull_file" value="$(find simulation_initialization_ros_tool)/res/sample_hull.xml" />
         <arg name="object_type" value="car" />
         <arg name="s_start" value="0.0" />
