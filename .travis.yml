@@ -7,8 +7,6 @@ language: cpp
 compiler: gcc
 cache: ccache
 
-install: travis_wait mvn install
-
 notifications:
   email:
     recipients:
