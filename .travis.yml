@@ -21,6 +21,11 @@ matrix:
       - UBUNTU_VERSION=focal
       - ROS_DISTRO=noetic
 
+branches:
+  only:
+    - release
+    - test_focal
+
 env:
   global:
     - DEPENDENCIES_ROSINSTALL=dependencies.rosinstall
